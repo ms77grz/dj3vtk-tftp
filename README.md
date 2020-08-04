@@ -1,1 +1,1 @@
-dbe3 mysite
+dj3vtk-tftp
