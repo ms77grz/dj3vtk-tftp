@@ -1,0 +1,11 @@
+{% extends "equipment_accounting/base.html" %}
+{% block content %}
+{% for device in devices %}
+<p>
+    {{device.hostname}} {{device.ip}} {{device.model}}
+    {{device.type_of_service}} {{device.address}} {{device.area}}
+    {{device.latitude}} {{device.longitude}} {{device.site}} {{device.comment}}
+</p>
+
+{% endfor %}
+{% endblock content %}

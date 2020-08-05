@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'equipment_accounting.apps.EquipmentAccountingConfig',
 ]
 
 MIDDLEWARE = [
