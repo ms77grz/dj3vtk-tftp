@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 import json
+import os
 
 with open('/etc/dj3vtk-tftp-config.json') as config_file:
     config = json.load(config_file)
@@ -42,6 +43,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'equipment_accounting.apps.EquipmentAccountingConfig',
+    'users.apps.UsersConfig',
+    'blog.apps.BlogConfig',
+    'crispy_forms',
+    'django_cleanup.apps.CleanupConfig',
 ]
 
 MIDDLEWARE = [
@@ -123,3 +128,25 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+LOGIN_REDIRECT_URL = 'equipment_accounting_home'
+LOGIN_URL = 'login'
+
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = 'smtp.vainahtelecom.ru'
+# EMAIL_PORT = 465
+# EMAIL_USE_TLS = True
+# EMAIL_HOST_USER = os.environ.get('VTK_MAIL_USER')
+# EMAIL_HOST_PASSWORD = os.environ.get('VTK_MAIL_PASS')
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = os.environ.get('GMAIL_USER')
+EMAIL_HOST_PASSWORD = os.environ.get('GMAIL_PASS')
