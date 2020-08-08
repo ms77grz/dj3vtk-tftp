@@ -1,7 +1,8 @@
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render, get_object_or_404
 from .models import Post
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
 
 # def post_list(request):
@@ -25,13 +26,54 @@ class PostListView(ListView):
     queryset = Post.published.all()
     context_object_name = 'posts'
     paginate_by = 3
-    template_name = 'blog/post/list.html'
+    # template_name = 'blog/post/list.html'
 
 
-def post_detail(request, year, month, day, post):
-    post = get_object_or_404(Post,  slug=post, 
-                                    status='published',
-                                    publish__year=year,
-                                    publish__month=month,
-                                    publish__day=day)
-    return render(request, 'blog/post/detail.html', {'title': post.title, 'post': post})
+# def post_detail(request, year, month, day, post):
+#     post = get_object_or_404(Post,  slug=post, 
+#                                     status='published',
+#                                     publish__year=year,
+#                                     publish__month=month,
+#                                     publish__day=day)
+#     return render(request, 'blog/post/detail.html', {'title': post.title, 'post': post})
+
+
+class PostDetailView(DetailView):
+    model = Post
+    # template_name = 'blog/post/detail.html'
+
+
+class PostCreateView(LoginRequiredMixin, CreateView):
+    model = Post
+    fields = ['title', 'body']
+    # success_url = '/'
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
+
+class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = Post
+    fields = ['title', 'body']
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
+    def test_func(self):
+        post = self.get_object()
+        if self.request.user == post.author:
+            return True
+        return False
+
+
+class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = Post
+    success_url = '/blog'
+
+    def test_func(self):
+        post = self.get_object()
+        if self.request.user == post.author:
+            return True
+        return False

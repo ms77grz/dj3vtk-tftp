@@ -1,5 +1,6 @@
 {% extends "equipment_accounting/base.html" %}
 {% block content %}
+{% for post in posts %}
 <article class="media content-section">
     <img src="{{ post.author.profile.image.url }}" class="rounded-circle article-img">
     <div class="media-body">
@@ -7,8 +8,12 @@
             <a class="mr-2" href="#">{{ post.author }}</a>
             <small class="text-muted">{{ post.publish|date:"F d, Y" }}</small>
         </div>
-        <h2 class="article-title">{{ post.title }}</h2>
-        <p class="article-content">{{ post.body|linebreaks }}</p>
+        <h2><a class="article-title" href="{{ post.get_absolute_url }}">{{ post.title }}</a></h2>
+        <!-- We can also use following method -->
+        <!-- <h2><a class="article-title" href="{% url 'blog:post_detail' post.id %}">{{ post.title }}</a></h2> -->
+        <p class="article-content">{{ post.body|truncatewords:30|linebreaks }}</p>
     </div>
 </article>
+{% endfor %}
+{% include "pagination.html" with page=page_obj %}
 {% endblock %}
