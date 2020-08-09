@@ -1,6 +1,5 @@
 {% extends "equipment_accounting/base.html" %}
 {% block content %}
-<h1 class="mb-3">Posts by {{ view.kwargs.username }} ({{ page_obj.paginator.count }})</h1>
 {% for post in posts %}
 <article class="media content-section">
     <img src="{{ post.author.profile.image.url }}" class="rounded-circle article-img">
@@ -14,6 +13,9 @@
     </div>
 </article>
 {% endfor %}
+<small class="text-mutted">
+    Posts by {{ view.kwargs.username }} ({{ page_obj.paginator.count }})
+</small>
 <!-- Pagination -->
 {% include "pagination.html" with page=page_obj %}
 <!-- {% if is_paginated %}
