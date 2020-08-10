@@ -1,0 +1,25 @@
+{% extends "equipment_accounting/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="content-section">
+    <form action="" method="POST">
+        {% csrf_token %}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">Поиск абонента</legend>
+            {{ form|crispy }}
+        </fieldset>
+        <div class="form-group">
+            <button class="btn btn-outline-info" type="submit">Найти</button>
+        </div>
+    </form>
+</div>
+{% if output %}
+<article class="media content-section">
+    <div class="media-body">
+        {% for line in output%}
+        <p>{{ line }}</p>
+        {% endfor %}
+    </div>
+</article>
+{% endif %}
+{% endblock content %}

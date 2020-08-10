@@ -5,8 +5,12 @@ from .forms import SearchSubscriber
 from subprocess import Popen, PIPE, STDOUT
 
 
-@login_required
 def home(request):
+    return render(request, 'equipment_accounting/home.html')
+
+
+@login_required
+def search(request):
     if request.method == 'POST':
         form = SearchSubscriber(request.POST)
         if form.is_valid():
@@ -24,10 +28,10 @@ def home(request):
             if len(output) < 5:
                 output = None
             form = SearchSubscriber()
-            return render(request, 'equipment_accounting/home.html', {'form': form, 'output': output})
+            return render(request, 'equipment_accounting/search.html', {'form': form, 'output': output})
     else:
         form = SearchSubscriber()
-    return render(request, 'equipment_accounting/home.html', {'form': form})
+    return render(request, 'equipment_accounting/search.html', {'form': form})
 
 
 def about(request):

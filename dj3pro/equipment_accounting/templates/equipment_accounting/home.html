@@ -1,25 +1,18 @@
 {% extends "equipment_accounting/base.html" %}
-{% load crispy_forms_tags %}
 {% block content %}
-<div class="content-section">
-    <form action="" method="POST">
-        {% csrf_token %}
-        <fieldset class="form-group">
-            <legend class="border-bottom mb-4">Поиск абонента</legend>
-            {{ form|crispy }}
-        </fieldset>
-        <div class="form-group">
-            <button class="btn btn-outline-info" type="submit">Найти</button>
-        </div>
-    </form>
-</div>
-{% if output %}
 <article class="media content-section">
     <div class="media-body">
-        {% for line in output%}
-        <p>{{ line }}</p>
-        {% endfor %}
+        <h2 class="article-title">Добро пожаловать!</h2>
+        <h4 class="article-title">Доступ к поиску можно получить после регистрации</h4>
+        <h5 class="article-title">Регистрация только vainahtelecom.ru адресов</h5>
+        <p class="article-content">
+            <a class="article-title" href="{% url 'blog:post_list' %}">
+                реализован блог для размещения статей, публикаций, предложений, замечаний
+            </a>
+        </p>
+        <h2><a class="article-title" href="{% url 'equipment_accounting_search' %}">поиск абонента</a></h2>
+        <h3><a class="article-title" href="{% url 'equipment_accounting_search' %}">поиск абонента</a></h3>
+        <h4><a class="article-title" href="{% url 'equipment_accounting_search' %}">поиск абонента</a></h4>
     </div>
 </article>
-{% endif %}
 {% endblock content %}
