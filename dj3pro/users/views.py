@@ -1,27 +1,17 @@
+from django.contrib.auth import login
 from django.shortcuts import render, redirect
+from django.contrib.sites.shortcuts import get_current_site
+from django.utils.http import urlsafe_base64_encode
+from django.utils.http import urlsafe_base64_decode
+from django.utils.encoding import force_bytes
+from django.template.loader import render_to_string
+from django.utils.encoding import force_text
+from django.contrib.auth.models import User
+from django.db import IntegrityError
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import UserRegistrationForm, UserUpdateForm, ProfileUpdateForm
 from .tokens import account_activation_token
-from django.template.loader import render_to_string
-from django.contrib.sites.shortcuts import get_current_site
-from django.utils.http import urlsafe_base64_encode
-from django.utils.http import urlsafe_base64_decode
-from django.utils.encoding import force_bytes
-from django.contrib.auth.models import User
-from django.utils.encoding import force_text
-
-from django.contrib.auth import login, authenticate
-from django.shortcuts import render, redirect, get_object_or_404, HttpResponseRedirect
-from django.contrib.sites.shortcuts import get_current_site
-from django.utils.encoding import force_text
-from django.contrib.auth.models import User
-from django.db import IntegrityError
-from django.utils.http import urlsafe_base64_decode
-from django.utils.encoding import force_bytes
-from django.utils.http import urlsafe_base64_encode
-from .tokens import account_activation_token
-from django.template.loader import render_to_string
 
 
 def register(request):
@@ -37,7 +27,7 @@ def register(request):
             subject = 'Please Activate Your Account'
             # load a template like get_template()
             # and calls its render() method immediately.
-            message = render_to_string('activation_request.html', {
+            message = render_to_string('registration/activation_request.html', {
                 'user': user,
                 'domain': current_site.domain,
                 'uid': urlsafe_base64_encode(force_bytes(user.pk)),
@@ -45,19 +35,12 @@ def register(request):
                 'token': account_activation_token.make_token(user),
             })
             user.email_user(subject, message)
-            return redirect('activation_sent')
-
-            # that was just for massage ### username = form.cleaned_data.get('username')
-            # messages.success(
-            #     request, 'Your account has been created! You are now able to log in')
-            # return redirect('login')
+            messages.success(
+                request, f'Your account has been created! Activation link sent at {user.email}')
+            return redirect('login')
     else:
         form = UserRegistrationForm()
     return render(request, 'users/register.html', {'form': form})
-
-
-def activation_sent(request):
-    return render(request, 'users/activation_sent.html')
 
 
 def activate(request, uidb64, token):
@@ -73,10 +56,12 @@ def activate(request, uidb64, token):
         # set signup_confirmation true
         user.profile.signup_confirmation = True
         user.save()
+        # login user
         login(request, user)
-        return redirect('login')
+        return redirect('equipment_accounting_home')
     else:
-        return render(request, 'users/activation_invalid.html')
+        messages.error(request, f"Activation is invalid!")
+        return redirect('register')
 
 
 @login_required

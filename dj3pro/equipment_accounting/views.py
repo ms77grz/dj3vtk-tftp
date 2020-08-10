@@ -10,16 +10,21 @@ def home(request):
     if request.method == 'POST':
         form = SearchSubscriber(request.POST)
         if form.is_valid():
+            # to update on production
+            data_directory_path = "/home/magax/webapps/networking/ftth/ftth_data/"
             account_number = form.cleaned_data.get('account_number')
-            command = ["ag", "-B 1", "--hidden", "--nonumbers", f"{account_number}", "/home/magax/webapps/networking/ftth/ftth_data"]
+            command = ["ag", "-B 1", "--hidden", "--nonumbers",
+                       f"{account_number}", data_directory_path]
             process = Popen(command, stdout=PIPE, stderr=STDOUT)
             output = process.stdout.read().decode()
             output = ''.join(output)
-            output = output.replace('/home/magax/webapps/networking/ftth/ftth_data/', '')
+            output = output.replace(
+                data_directory_path, '')
             output = output.split('\n')
-            for p in output:
-                messages.success(request, f"{p}")
-            return redirect('equipment_accounting_home')
+            if len(output) < 5:
+                output = None
+            form = SearchSubscriber()
+            return render(request, 'equipment_accounting/home.html', {'form': form, 'output': output})
     else:
         form = SearchSubscriber()
     return render(request, 'equipment_accounting/home.html', {'form': form})

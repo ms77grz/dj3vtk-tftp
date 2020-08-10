@@ -14,7 +14,7 @@ class UserRegistrationForm(UserCreationForm):
     def clean_email(self):
         data = self.cleaned_data['email']
         domain = data.split('@')[1]
-        domain_list = ["vainahtelecom.ru", "yandex.ru"]
+        domain_list = ["vainahtelecom.ru"]
         # domain_list = ["gmail.com", "yahoo.com", "hotmail.com",]
         if domain not in domain_list:
             raise forms.ValidationError(

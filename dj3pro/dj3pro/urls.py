@@ -37,7 +37,6 @@ urlpatterns = [
         template_name='users/password_reset_confirm.html'), name='password_reset_confirm'),
     path('password-reset-complete/', auth_views.PasswordResetCompleteView.as_view(
         template_name='users/password_reset_complete.html'), name='password_reset_complete'),
-    path('sent/', users_views.activation_sent, name="activation_sent"),
     path('activate/<slug:uidb64>/<slug:token>/', users_views.activate, name='activate'),
     path('', include('equipment_accounting.urls')),
 ]
