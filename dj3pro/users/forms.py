@@ -5,19 +5,20 @@ from .models import Profile
 
 
 class UserRegistrationForm(UserCreationForm):
-    email = forms.EmailField()
-
+    # email = forms.EmailField()
     class Meta:
         model = User
-        fields = ['first_name', 'last_name', 'username', 'email', 'password1', 'password2']
-    
+        fields = ['first_name', 'last_name', 'username',
+                  'email', 'password1', 'password2']
+
     def clean_email(self):
         data = self.cleaned_data['email']
         domain = data.split('@')[1]
-        domain_list = ["vainahtelecom.ru"]
+        domain_list = ["vainahtelecom.ru", "yandex.ru"]
         # domain_list = ["gmail.com", "yahoo.com", "hotmail.com",]
         if domain not in domain_list:
-        	raise forms.ValidationError("Please enter an Email Address with a valid domain")
+            raise forms.ValidationError(
+                "Please enter an Email Address with a valid domain")
         return data
 
     def save(self, commit=True):
@@ -29,8 +30,7 @@ class UserRegistrationForm(UserCreationForm):
 
 
 class UserUpdateForm(forms.ModelForm):
-    email = forms.EmailField()
-
+    # email = forms.EmailField()
     class Meta:
         model = User
         fields = ['first_name', 'last_name', 'username', 'email']
