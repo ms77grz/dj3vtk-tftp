@@ -15,7 +15,7 @@ def search(request):
     if request.method == 'POST':
         form = SearchSubscriber(request.POST)
         if form.is_valid():
-            devcons = config['DEVCONS']
+            devcons = config.get('DEVCONS')
             account_number = form.cleaned_data.get('account_number')
             command = ["ag", "-B 1", "--hidden", "--nonumbers",
                        f"{account_number}", devcons]
