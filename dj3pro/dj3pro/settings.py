@@ -7,7 +7,7 @@ MESSAGE_TAGS = {
     messages.ERROR: 'danger',
 }
 
-with open('/etc/dj3vtk-tftp-config.json') as config_file:
+with open('/etc/webcons/dj3vtk-tftp-config.json') as config_file:
     config = json.load(config_file)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -21,9 +21,9 @@ BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 SECRET_KEY = config['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config['DEBUG']
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = config['ALLOWED_HOSTS']
 
 
 # Application definition
@@ -130,18 +130,11 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 LOGIN_REDIRECT_URL = 'equipment_accounting_home'
 LOGIN_URL = 'login'
 
-# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-# EMAIL_HOST = 'smtp.vainahtelecom.ru'
-# EMAIL_PORT = 465
-# EMAIL_USE_TLS = True
-# EMAIL_HOST_USER = os.environ.get('VTK_MAIL_USER')
-# EMAIL_HOST_PASSWORD = os.environ.get('VTK_MAIL_PASS')
-
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = os.environ.get('GMAIL_USER')
-EMAIL_HOST_PASSWORD = os.environ.get('GMAIL_PASS')
+EMAIL_HOST_USER = config.get('MAIL_USER')
+EMAIL_HOST_PASSWORD = config.get('GMAIL_PASS')
 
 PASSWORD_RESET_TIMEOUT_DAYS = 1
