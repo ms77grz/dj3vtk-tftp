@@ -18,6 +18,8 @@ def register(request):
     if request.method == 'POST':
         form = UserRegistrationForm(request.POST)
         if form.is_valid():
+            # Let's first check that we can send_mail
+
             user = form.save()
             # user can't login until link confirmed
             user.is_active = False

@@ -12,14 +12,14 @@ class UserRegistrationForm(UserCreationForm):
                   'email', 'password1', 'password2']
 
     def clean_email(self):
-        data = self.cleaned_data['email']
-        domain = data.split('@')[1]
-        domain_list = ["vainahtelecom.ru"]
+        email = self.cleaned_data['email']
+        domain = email.split('@')[1]
+        domain_list = ['vainahtelecom.ru']
         # domain_list = ["gmail.com", "yahoo.com", "hotmail.com",]
         if domain not in domain_list:
             raise forms.ValidationError(
                 "Please enter an Email Address with a valid domain")
-        return data
+        return email
 
     def save(self, commit=True):
         user = super(UserRegistrationForm, self).save(commit=False)
