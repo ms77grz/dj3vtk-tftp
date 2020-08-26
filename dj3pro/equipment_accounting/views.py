@@ -25,7 +25,7 @@ def search(request):
             output = output.replace(
                 devcons, '')
             output = output.split('\n')
-            if len(output) < 5:
+            if len(output) < 1:
                 output = None
             form = SearchSubscriber()
             return render(request, 'equipment_accounting/search.html', {'form': form, 'output': output})
