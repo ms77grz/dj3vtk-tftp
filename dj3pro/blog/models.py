@@ -50,7 +50,14 @@ class Post(models.Model):
     #                           'slug': self.slug})
 
     def get_absolute_url(self):
-        return reverse('blog:post_detail', kwargs={'pk': self.pk})
+        kwargs={
+            'pk': self.pk,
+            'slug': self.slug,
+            'year': self.publish.year,
+            'month': self.publish.month,
+            'day': self.publish.day,
+        }
+        return reverse('blog:post_detail', kwargs=kwargs)
 
     # auto generate slug
     def save(self, *args, **kwargs):

@@ -8,7 +8,7 @@
             <a class="mr-2" href="{% url 'blog:user_posts' post.author.username %}">{{ post.author }}</a>
             <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small>
         </div>
-        <h2><a class="article-title" href="{% url 'blog:post_detail' post.id %}">{{ post.title }}</a></h2>
+        <h2><a class="article-title" href="{{ post.get_absolute_url }}">{{ post.title }}</a></h2>
         <p class="article-content">{{ post.content }}</p>
     </div>
 </article>
