@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'equipment_accounting.apps.EquipmentAccountingConfig',
     'users.apps.UsersConfig',
     'blog.apps.BlogConfig',
+    'network.apps.NetworkConfig',
     'crispy_forms',
     'django_cleanup.apps.CleanupConfig',
 ]
