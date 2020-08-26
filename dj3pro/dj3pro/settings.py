@@ -130,11 +130,12 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 LOGIN_REDIRECT_URL = 'equipment_accounting_home'
 LOGIN_URL = 'login'
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_BACKEND = 'django_smtp_ssl.SSLEmailBackend'
+EMAIL_HOST = 'smtp.vainahtelecom.ru'
+EMAIL_PORT = 465
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = config.get('MAIL_USER')
-EMAIL_HOST_PASSWORD = config.get('GMAIL_PASS')
+EMAIL_HOST_PASSWORD = config.get('MAIL_PASS')
 
 PASSWORD_RESET_TIMEOUT_DAYS = 1
