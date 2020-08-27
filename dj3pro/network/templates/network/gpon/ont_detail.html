@@ -6,12 +6,14 @@
 {% block content %}
 <div class="content-section">
     <h3>{{ title }}</h3>
-    <p>OLT: {{ ip }}</p>
-    <p>Slot/Port: {{ slot_port }}</p>
-    <p>ONT ID: {{ ont_id }}</p>
-    <p>Description: {{ description }}</p>
-    <p>SN: {{ sn }}</p>
-    <p>Profile: {{ lineprofile }}</p>
-    <p>OLT Rx ONT optical power(dBm): {{ optical_power }}</p>
+    <ul class="list-group mb-3">
+        <li class="list-group-item list-group-item-light">OLT: {{ ip }}</li>
+        <li class="list-group-item list-group-item-light">Slot/Port: {{ slot_port }}</li>
+        <li class="list-group-item list-group-item-light">ONT ID: {{ ont_id }}</li>
+        <li class="list-group-item list-group-item-light">Description: {{ description }}</li>
+        <li class="list-group-item list-group-item-light">SN: {{ sn }}</li>
+        <li class="list-group-item list-group-item-light">Profile: {{ lineprofile }}</li>
+        <li class="list-group-item list-group-item-light">OLT Rx ONT optical power(dBm): {{ optical_power }}</li>
+    </ul>
 </div>
 {% endblock %}
