@@ -50,7 +50,7 @@ def ont_detail(request, ip, oid, description):
     # Getting serial number and profile
     session = Session(hostname=ip, community='gpon_vtk_95',
                       version=2, use_sprint_value=True)
-    sn = session.get(f'enterprises.2011.6.128.1.1.2.43.1.3.{oid_id}').value.replace(
+    sn = session.get(f'iso.3.6.1.4.1.2011.6.128.1.1.2.43.1.3.{oid_id}').value.replace(
         ' ', '').replace('"', '')
     lineprofile = session.get(
         f'.1.3.6.1.4.1.2011.6.128.1.1.2.43.1.7.{oid_id}').value.replace('"', '')
