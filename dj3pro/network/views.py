@@ -20,7 +20,7 @@ def olt_list(request):
 
     df = pd.read_csv(file_path, names=(
         'id', 'address', 'ip', 'model', 's_cap', 'b_cap', 'xnum', 'xplata', 'boards', 'inst_date', 'lat', 'lon', 'area', 'desc'))
-    df1 = df[['ip', 'address']]
+    df1 = df[['ip', 'address', 'model']]
     olts = df1.to_dict('records')
 
     return render(request, 'network/gpon/olt_list.html', {'title': title, 'olts': olts})
