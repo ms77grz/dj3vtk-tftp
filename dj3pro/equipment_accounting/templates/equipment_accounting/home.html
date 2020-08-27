@@ -2,18 +2,15 @@
 {% block content %}
 <article class="media content-section">
     <div class="media-body">
-        <h2 class="article-title">Добро пожаловать!</h2>
-	<h4 class="article-title">Доступ к поиску можно получить после <a href="{% url 'register' %}">регистрации</a></h4>
-        <h5 class="article-title">Регистрация только vainahtelecom.ru адресов</h5>
-        <h6 class="article-title">Получить учетку или восстановить пароль можно <a href="https://t.me/josh_kant">здесь</a></h6>
-        <p class="article-content">
-            <a class="article-title" href="{% url 'blog:post_list' %}">
-                реализован блог для размещения статей, публикаций, предложений, замечаний
-            </a>
+        <h3 class="article-title">Добро пожаловать!</h3>
+        <p class="text-muted">Доступ к <a href="{% url 'equipment_accounting_search' %}">поиску</a> можно получить после
+            <a href="{% url 'register' %}">регистрации</a>.<br>
+            Регистрация только @vainahtelecom.ru адресов.<br>
+            Получить @vainahtelecom.ru адрес или восстановить от него пароль можно <a
+                href="https://t.me/josh_kant">здесь</a>.<br>
+            Реализован <a href="{% url 'blog:post_list' %}">блог</a> для размещения статей, публикаций, предложений,
+            замечаний.
         </p>
-        <h2><a class="article-title" href="{% url 'equipment_accounting_search' %}">поиск абонента</a></h2>
-        <h3><a class="article-title" href="{% url 'equipment_accounting_search' %}">поиск абонента</a></h3>
-        <h4><a class="article-title" href="{% url 'equipment_accounting_search' %}">поиск абонента</a></h4>
     </div>
 </article>
 {% endblock content %}

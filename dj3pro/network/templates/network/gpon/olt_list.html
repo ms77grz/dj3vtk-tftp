@@ -4,16 +4,18 @@
 {% block title %}{% endblock %}
 
 {% block content %}
-<h1>{{ title }}</h1>
-<h5 style="color: red;">Для оборудования ELTEX (LTPx) функционал еще не реализован!</h5>
-<ul>
-    {% for olt in olts %}
-    <li><a href="{% url 'olt_detail' olt.ip %}">
-            {{ olt.ip }}
-            {{ olt.address }}
-            {{ olt.model }}
-        </a>
-    </li>
-    {% endfor%}
-</ul>
+<div class="content-section">
+    <h3>{{ title }}</h3>
+    <p class="offline">Для оборудования ELTEX (LTPx) функционал не реализован!</p>
+    <ul>
+        {% for olt in olts %}
+        <li><a href="{% url 'olt_detail' olt.ip %}">
+                {{ olt.ip }}
+                {{ olt.address }}
+                {{ olt.model }}
+            </a>
+        </li>
+        {% endfor%}
+    </ul>
+</div>
 {% endblock %}

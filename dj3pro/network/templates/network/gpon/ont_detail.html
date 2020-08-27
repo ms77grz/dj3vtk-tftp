@@ -4,13 +4,14 @@
 {% block title %}{% endblock %}
 
 {% block content %}
-<h1>{{ title }}</h1>
-<p>OLT: {{ ip }}</p>
-<p>Slot/Port: {{ slot_port }}</p>
-<p>ONT ID: {{ ont_id }}</p>
-<p>Description: {{ description }}</p>
-<p>SN: {{ sn }}</p>
-<p>Profile: {{ lineprofile }}</p>
-<p>OLT Rx ONT optical power(dBm): {{ optical_power }}</p>
-
+<div class="content-section">
+    <h3>{{ title }}</h3>
+    <p>OLT: {{ ip }}</p>
+    <p>Slot/Port: {{ slot_port }}</p>
+    <p>ONT ID: {{ ont_id }}</p>
+    <p>Description: {{ description }}</p>
+    <p>SN: {{ sn }}</p>
+    <p>Profile: {{ lineprofile }}</p>
+    <p>OLT Rx ONT optical power(dBm): {{ optical_power }}</p>
+</div>
 {% endblock %}

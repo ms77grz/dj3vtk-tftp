@@ -4,16 +4,17 @@
 {% block title %}{% endblock %}
 
 {% block content %}
-<h1>{{ title }}</h1>
-<ul>
-    {% for ont, state in zipped_context %}
-    <li>
-        <a href="{% url 'ont_detail' ip ont.oid ont.value %}">
-            {{ ont.value|clear_value }}
-            <span class="{{ state.value|ont_status }}">{{ state.value|ont_status }}</span>
-        </a>
-    </li>
-    {% endfor %}
-</ul>
-
+<div class="content-section">
+    <h3>{{ title }}</h3>
+    <ul>
+        {% for ont, state in zipped_context %}
+        <li>
+            <a href="{% url 'ont_detail' ip ont.oid ont.value %}">
+                {{ ont.value|clear_value }}
+                <span class="{{ state.value|ont_status }}">{{ state.value|ont_status }}</span>
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
 {% endblock %}
