@@ -55,7 +55,7 @@ def olt_detail(request, ip, model):
 
 
 @login_required
-def ont_detail(request, ip, oid, description):
+def ont_detail(request, ip, oid):
     title = 'Свойства ONT'
     ont_id = oid.split('.')[-1]  # 0-15
     oid_id = '.'.join(oid.split('.')[-2:])  # 4194304000.0
@@ -74,11 +74,8 @@ def ont_detail(request, ip, oid, description):
         'title': title,
         'ip': ip,
         'lineprofile': lineprofile,
-        'description': description,
         'sn': sn,
         'ont_id': ont_id,
-        'oid_id': oid_id,
         'slot_port': slot_port,
-        'port_id': port_id,
         'optical_power': optical_power
     })

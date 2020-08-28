@@ -9,7 +9,7 @@
     <ul>
         {% for ont, state in zipped_context %}
         <li>
-            <a href="{% url 'ont_detail' ip ont.oid ont.value %}">
+            <a href="{% url 'ont_detail' ip ont.oid %}">
                 {{ ont.value|clear_value }}
                 <span class="{{ state.value|ont_status }}">{{ state.value|ont_status }}</span>
             </a>
