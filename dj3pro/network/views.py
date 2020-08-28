@@ -44,8 +44,8 @@ def olt_detail(request, ip, model):
             session = Session(hostname=ip, community=SNMP_COMM_RO, version=2)
             subscribers = session.walk(
                 '.1.3.6.1.4.1.35265.1.22.3.4.1.8')
-            # states = session.walk('ifOperStatus')
-            states = subscribers
+            states = session.walk('.1.3.6.1.4.1.35265.1.22.3.2.1.5')
+            # states = subscribers
             zipped_context = zip(subscribers, states)
             # return redirect('network_url')
         except Exception:
