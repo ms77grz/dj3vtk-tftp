@@ -45,31 +45,51 @@ def olt_detail(request, ip, model):
             subscribers = session.walk(
                 '.1.3.6.1.4.1.35265.1.22.3.4.1.8')
             states = session.walk('.1.3.6.1.4.1.35265.1.22.3.2.1.5')
-            # states = subscribers
             zipped_context = zip(subscribers, states)
-            # return redirect('network_url')
         except Exception:
             messages.error(request, f'Не удалось установить связь с {ip}')
             return redirect('olt_list')
-    return render(request, 'network/gpon/olt_detail.html', {'title': title, 'zipped_context': zipped_context, 'ip': ip})
+    return render(request, 'network/gpon/olt_detail.html', {'title': title, 'zipped_context': zipped_context, 'ip': ip, 'model': model})
 
 
 @login_required
-def ont_detail(request, ip, oid):
+def ont_detail(request, ip, model, oid):
     title = 'Свойства ONT'
-    ont_id = oid.split('.')[-1]  # 0-15
-    oid_id = '.'.join(oid.split('.')[-2:])  # 4194304000.0
-    port_id = oid.split('.')[-2]  # 4194304000
-    slot_port = sp(port_id)
-    # Getting serial number and profile
-    session = Session(hostname=ip, community='gpon_vtk_95',
-                      version=2, use_sprint_value=True)
-    sn = session.get(f'iso.3.6.1.4.1.2011.6.128.1.1.2.43.1.3.{oid_id}').value.replace(
-        ' ', '').replace('"', '')
-    lineprofile = session.get(
-        f'.1.3.6.1.4.1.2011.6.128.1.1.2.43.1.7.{oid_id}').value.replace('"', '')
-    optical_power = round(int(session.get(
-        f'.1.3.6.1.4.1.2011.6.128.1.1.2.51.1.6.{oid_id}').value)/100-100, 2)
+    if model not in ['LTP-4X', 'LTP-8X']:
+        ont_id = oid.split('.')[-1]  # 0-15
+        oid_id = '.'.join(oid.split('.')[-2:])  # 4194304000.0
+        port_id = oid.split('.')[-2]  # 4194304000
+        slot_port = sp(port_id)
+        try:
+            session = Session(hostname=ip, community='gpon_vtk_95',
+                              version=2, use_sprint_value=True)
+            sn = session.get(f'iso.3.6.1.4.1.2011.6.128.1.1.2.43.1.3.{oid_id}').value.replace(
+                ' ', '').replace('"', '')
+            lineprofile = session.get(
+                f'.1.3.6.1.4.1.2011.6.128.1.1.2.43.1.7.{oid_id}').value.replace('"', '')
+            optical_power = round(int(session.get(
+                f'.1.3.6.1.4.1.2011.6.128.1.1.2.51.1.6.{oid_id}').value)/100-100, 2)
+        except Exception:
+            messages.error(request, f'Не удалось установить связь с {ip}')
+            return redirect('olt_list')
+    else:
+        ont_id = None
+        oid_id = '.'.join(oid.split('.')[-3:])  # 4.30.212
+        lineprofile = None
+        slot_port = None
+
+        try:
+            session = Session(hostname=ip, community='gpon_vtk_95',
+                              version=2, use_sprint_value=True)
+            sn = session.get(
+                f'1.3.6.1.4.1.35265.1.22.3.4.1.2.1.8.69.76.84.88.98.{oid_id}').value.replace(
+                ' ', '').replace('"', '')
+            optical_power = round(int(session.get(
+                f'1.3.6.1.4.1.35265.1.22.3.1.1.11.1.8.69.76.84.88.98.{oid_id}').value)*0.1, 2)
+        except Exception:
+            messages.error(request, f'Не удалось установить связь с {ip}')
+            return redirect('olt_list')
+
     return render(request, 'network/gpon/ont_detail.html', {
         'title': title,
         'ip': ip,

@@ -5,5 +5,5 @@ urlpatterns = [
     path('', network, name='network_url'),
     path('gpon/', olt_list, name='olt_list'),
     path('gpon/olt/<str:ip>/<str:model>', olt_detail, name='olt_detail'),
-    path('gpon/ont/<str:ip>/<str:oid>/', ont_detail, name='ont_detail'),
+    path('gpon/ont/<str:ip>/<str:model>/<str:oid>/', ont_detail, name='ont_detail'),
 ]
