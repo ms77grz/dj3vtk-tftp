@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import SearchSubscriber
 from subprocess import Popen, PIPE, STDOUT
-from dj3pro.settings import config
+from dj3pro.settings import DEVCONS
 
 
 def home(request):
@@ -15,15 +15,14 @@ def search(request):
     if request.method == 'POST':
         form = SearchSubscriber(request.POST)
         if form.is_valid():
-            devcons = config.get('DEVCONS')
             account_number = form.cleaned_data.get('account_number')
             command = ["ag", "-B 1", "--hidden", "--nonumbers",
-                       f"{account_number}", devcons]
+                       f"{account_number}", DEVCONS]
             process = Popen(command, stdout=PIPE, stderr=STDOUT)
             output = process.stdout.read().decode()
             output = ''.join(output)
             output = output.replace(
-                devcons, '')
+                DEVCONS, '')
             output = output.split('\n')
             if len(output) < 1:
                 output = None
