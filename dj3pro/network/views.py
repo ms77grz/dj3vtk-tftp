@@ -5,7 +5,10 @@ from easysnmp import Session
 import pandas as pd
 import os
 from .utils import sp
-from dj3pro.settings import SNMP_COMM_RO
+# from dj3pro.settings import SNMP_COMM_RO
+from django.conf import settings
+
+SNMP_COMM_RO = settings.SNMP_COMM_RO
 
 module_dir = os.path.dirname(__file__)  # get current directory
 file_path = os.path.join(module_dir, '/home/ms77grz/.devreg/gpon_hosts.csv')

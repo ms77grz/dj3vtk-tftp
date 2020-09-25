@@ -3,8 +3,10 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import SearchSubscriber
 from subprocess import Popen, PIPE, STDOUT
-from dj3pro.settings import DEVCONS
+# from dj3pro.settings import DEVCONS
+from django.conf import settings
 
+DEVCONS = settings.DEVCONS
 
 def home(request):
     return render(request, 'equipment_accounting/home.html')
