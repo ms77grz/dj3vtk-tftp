@@ -23,7 +23,7 @@ from django.contrib.auth.models import User
 #     return render(request, 'blog/post/list.html', {'title':'Blog','posts': posts, 'page': page})
 
 
-class PostListView(ListView):
+class PostListView(LoginRequiredMixin, ListView):
     queryset = Post.published.all()
     context_object_name = 'posts'
     paginate_by = 3
@@ -39,7 +39,7 @@ class PostListView(ListView):
 #     return render(request, 'blog/post/detail.html', {'title': post.title, 'post': post})
 
 
-class UserPostListView(ListView):
+class UserPostListView(LoginRequiredMixin, ListView):
     model = Post
     template_name = 'blog/user_posts.html'
     context_object_name = 'posts'
@@ -50,7 +50,7 @@ class UserPostListView(ListView):
         return Post.objects.filter(author=user).order_by('-publish')
 
 
-class PostDetailView(DetailView):
+class PostDetailView(LoginRequiredMixin, DetailView):
     model = Post
     # query_pk_and_slug = True
     # template_name = 'blog/post/detail.html'

@@ -5,7 +5,6 @@ from easysnmp import Session
 import pandas as pd
 import os
 from .utils import sp
-# from dj3pro.settings import SNMP_COMM_RO
 from django.conf import settings
 
 SNMP_COMM_RO = settings.SNMP_COMM_RO
