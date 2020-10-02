@@ -42,15 +42,17 @@ def olt_detail(request, ip, model):
             messages.error(request, f'Не удалось установить связь с {ip}')
             return redirect('olt_list')
     else:
-        try:
-            session = Session(hostname=ip, community=SNMP_COMM_RO, version=2)
-            subscribers = session.walk(
-                '.1.3.6.1.4.1.35265.1.22.3.4.1.8')
-            states = session.walk('.1.3.6.1.4.1.35265.1.22.3.2.1.5')
-            zipped_context = zip(subscribers, states)
-        except Exception:
-            messages.error(request, f'Не удалось установить связь с {ip}')
-            return redirect('olt_list')
+        # try:
+        #     session = Session(hostname=ip, community=SNMP_COMM_RO, version=2)
+        #     subscribers = session.walk(
+        #         '.1.3.6.1.4.1.35265.1.22.3.4.1.8')
+        #     states = session.walk('.1.3.6.1.4.1.35265.1.22.3.2.1.5')
+        #     zipped_context = zip(subscribers, states)
+        # except Exception:
+        #     messages.error(request, f'Не удалось установить связь с {ip}')
+        #     return redirect('olt_list')
+        messages.error(request, f'Функционал для ELTEX не работает. Попробуйте подключиться по telnet {ip}')
+        return redirect('olt_list')
     return render(request, 'network/gpon/olt_detail.html', {'title': title, 'zipped_context': zipped_context, 'ip': ip, 'model': model})
 
 
