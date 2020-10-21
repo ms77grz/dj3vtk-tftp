@@ -8,15 +8,61 @@
     <h3>{{ title }}</h3>
     <p class="offline">Для оборудования ELTEX (LTPx) функционал не реализован!</p>
     <ul>
-        {% for olt in olts %}
-        <li><a href="{% url 'olt_detail' olt.ip olt.model %}">
-                {{ olt.ip }}
-                {{ olt.address }}
-                {{ olt.model }}
-                {{ olt.desc }}
-            </a>
-        </li>
-        {% endfor%}
+        <h5>Грозненский участок</h3>
+            {% for olt in olts %}
+            {% if olt.desc == 'Грозненский' %}
+            <li><a href="{% url 'olt_detail' olt.ip olt.model %}">
+                    {{ olt.ip }}
+                    {{ olt.address }}
+                    {{ olt.model }}
+                </a>
+            </li>
+            {% endif %}
+            {% endfor%}
+            <h5>Гудермесский участок</h3>
+                {% for olt in olts %}
+                {% if olt.desc == 'Гудермесский' %}
+                <li><a href="{% url 'olt_detail' olt.ip olt.model %}">
+                        {{ olt.ip }}
+                        {{ olt.address }}
+                        {{ olt.model }}
+                    </a>
+                </li>
+                {% endif %}
+                {% endfor%}
+                <h5>Знаменский участок</h3>
+                    {% for olt in olts %}
+                    {% if olt.desc == 'Знаменский' %}
+                    <li><a href="{% url 'olt_detail' olt.ip olt.model %}">
+                            {{ olt.ip }}
+                            {{ olt.address }}
+                            {{ olt.model }}
+                        </a>
+                    </li>
+                    {% endif %}
+                    {% endfor%}
+                    <h5>Урус-Мартановский участок</h3>
+                        {% for olt in olts %}
+                        {% if olt.desc == 'Урус-Мартановский' %}
+                        <li><a href="{% url 'olt_detail' olt.ip olt.model %}">
+                                {{ olt.ip }}
+                                {{ olt.address }}
+                                {{ olt.model }}
+                            </a>
+                        </li>
+                        {% endif %}
+                        {% endfor%}
+                        <h5>Шалинский участок</h3>
+                            {% for olt in olts %}
+                            {% if olt.desc == 'Шалинский' %}
+                            <li><a href="{% url 'olt_detail' olt.ip olt.model %}">
+                                    {{ olt.ip }}
+                                    {{ olt.address }}
+                                    {{ olt.model }}
+                                </a>
+                            </li>
+                            {% endif %}
+                            {% endfor%}
     </ul>
 </div>
 {% endblock %}
