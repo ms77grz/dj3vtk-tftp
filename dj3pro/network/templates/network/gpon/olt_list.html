@@ -8,32 +8,12 @@
     <h3>{{ title }}</h3>
     <p class="offline">Для оборудования ELTEX (LTPx) функционал не реализован!</p>
     <ul>
-        <h5>Грозненский участок</h3>
-            {% for olt in olts %}
-            {% if olt.desc == 'Грозненский' %}
-            <li><a href="{% url 'olt_detail' olt.ip olt.model %}">
-                    {{ olt.ip }}
-                    {{ olt.address }}
-                    {{ olt.model }}
-                </a>
-            </li>
-            {% endif %}
-            {% endfor%}
-            <h5>Гудермесский участок</h3>
-                {% for olt in olts %}
-                {% if olt.desc == 'Гудермесский' %}
-                <li><a href="{% url 'olt_detail' olt.ip olt.model %}">
-                        {{ olt.ip }}
-                        {{ olt.address }}
-                        {{ olt.model }}
-                    </a>
-                </li>
-                {% endif %}
-                {% endfor%}
-                <h5>Знаменский участок</h3>
+        <div class="dropdown show">
+            <h6 class="dropdown-toggle" data-toggle="dropdown">Грозненский участок</h3>
+                <div class="dropdown-menu">
                     {% for olt in olts %}
-                    {% if olt.desc == 'Знаменский' %}
-                    <li><a href="{% url 'olt_detail' olt.ip olt.model %}">
+                    {% if olt.desc == 'Грозненский' %}
+                    <li class="dropdown-item"><a href="{% url 'olt_detail' olt.ip olt.model %}">
                             {{ olt.ip }}
                             {{ olt.address }}
                             {{ olt.model }}
@@ -41,28 +21,68 @@
                     </li>
                     {% endif %}
                     {% endfor%}
-                    <h5>Урус-Мартановский участок</h3>
-                        {% for olt in olts %}
-                        {% if olt.desc == 'Урус-Мартановский' %}
-                        <li><a href="{% url 'olt_detail' olt.ip olt.model %}">
-                                {{ olt.ip }}
-                                {{ olt.address }}
-                                {{ olt.model }}
-                            </a>
-                        </li>
-                        {% endif %}
-                        {% endfor%}
-                        <h5>Шалинский участок</h3>
-                            {% for olt in olts %}
-                            {% if olt.desc == 'Шалинский' %}
-                            <li><a href="{% url 'olt_detail' olt.ip olt.model %}">
-                                    {{ olt.ip }}
-                                    {{ olt.address }}
-                                    {{ olt.model }}
-                                </a>
-                            </li>
-                            {% endif %}
-                            {% endfor%}
+                </div>
+        </div>
+        <div class="dropdown show">
+            <h6 class="dropdown-toggle" data-toggle="dropdown">Гудермесский участок</h3>
+                <div class="dropdown-menu">
+                    {% for olt in olts %}
+                    {% if olt.desc == 'Гудермесский' %}
+                    <li class="dropdown-item"><a href="{% url 'olt_detail' olt.ip olt.model %}">
+                            {{ olt.ip }}
+                            {{ olt.address }}
+                            {{ olt.model }}
+                        </a>
+                    </li>
+                    {% endif %}
+                    {% endfor%}
+                </div>
+        </div>
+        <div class="dropdown show">
+            <h6 class="dropdown-toggle" data-toggle="dropdown">Знаменский участок</h3>
+                <div class="dropdown-menu">
+                    {% for olt in olts %}
+                    {% if olt.desc == 'Знаменский' %}
+                    <li class="dropdown-item"><a href="{% url 'olt_detail' olt.ip olt.model %}">
+                            {{ olt.ip }}
+                            {{ olt.address }}
+                            {{ olt.model }}
+                        </a>
+                    </li>
+                    {% endif %}
+                    {% endfor%}
+                </div>
+        </div>
+        <div class="dropdown show">
+            <h6 class="dropdown-toggle" data-toggle="dropdown">Урус-Мартановский участок</h3>
+                <div class="dropdown-menu">
+                    {% for olt in olts %}
+                    {% if olt.desc == 'Урус-Мартановский' %}
+                    <li class="dropdown-item"><a href="{% url 'olt_detail' olt.ip olt.model %}">
+                            {{ olt.ip }}
+                            {{ olt.address }}
+                            {{ olt.model }}
+                        </a>
+                    </li>
+                    {% endif %}
+                    {% endfor%}
+                </div>
+        </div>
+        <div class="dropdown show">
+            <h6 class="dropdown-toggle" data-toggle="dropdown">Шалинский участок</h3>
+                <div class="dropdown-menu">
+                    {% for olt in olts %}
+                    {% if olt.desc == 'Шалинский' %}
+                    <li class="dropdown-item"><a href="{% url 'olt_detail' olt.ip olt.model %}">
+                            {{ olt.ip }}
+                            {{ olt.address }}
+                            {{ olt.model }}
+                        </a>
+                    </li>
+                    {% endif %}
+                    {% endfor%}
+                </div>
+        </div>
     </ul>
 </div>
 {% endblock %}
