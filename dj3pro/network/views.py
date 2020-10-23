@@ -19,7 +19,7 @@ def network(request):
 
 @login_required
 def olt_list(request):
-    title = 'GPON Проекты'
+    title = 'Список Проектов'
 
     df = pd.read_csv(file_path, names=(
         'id', 'address', 'ip', 'model', 's_cap', 'b_cap', 'xnum', 'xplata', 'boards', 'inst_date', 'lat', 'lon', 'area', 'desc'))
