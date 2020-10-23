@@ -39,10 +39,10 @@
                 </div>
         </div>
         <div class="dropdown show">
-            <h6 class="dropdown-toggle" data-toggle="dropdown">Знаменский участок</h3>
+            <h6 class="dropdown-toggle" data-toggle="dropdown">Шалинский участок</h3>
                 <div class="dropdown-menu">
                     {% for olt in olts %}
-                    {% if olt.desc == 'Знаменский' %}
+                    {% if olt.desc == 'Шалинский' %}
                     <li class="dropdown-item"><a href="{% url 'olt_detail' olt.ip olt.model %}">
                             {{ olt.ip }}
                             {{ olt.address }}
@@ -69,10 +69,10 @@
                 </div>
         </div>
         <div class="dropdown show">
-            <h6 class="dropdown-toggle" data-toggle="dropdown">Шалинский участок</h3>
+            <h6 class="dropdown-toggle" data-toggle="dropdown">Знаменский участок</h3>
                 <div class="dropdown-menu">
                     {% for olt in olts %}
-                    {% if olt.desc == 'Шалинский' %}
+                    {% if olt.desc == 'Знаменский' %}
                     <li class="dropdown-item"><a href="{% url 'olt_detail' olt.ip olt.model %}">
                             {{ olt.ip }}
                             {{ olt.address }}
