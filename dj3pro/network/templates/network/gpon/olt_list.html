@@ -13,7 +13,7 @@
                 <div class="dropdown-menu">
                     {% for olt in olts %}
                     {% if olt.desc == 'Грозненский' %}
-                    <li class="dropdown-item"><a href="{% url 'olt_detail' olt.ip olt.model %}">
+                    <li class="dropdown-item"><a class="alert-success" href="{% url 'olt_detail' olt.ip olt.model %}">
                             {{ olt.ip }}
                             {{ olt.address }}
                             {{ olt.model }}
@@ -28,7 +28,7 @@
                 <div class="dropdown-menu">
                     {% for olt in olts %}
                     {% if olt.desc == 'Гудермесский' %}
-                    <li class="dropdown-item"><a href="{% url 'olt_detail' olt.ip olt.model %}">
+                    <li class="dropdown-item"><a class="alert-success" href="{% url 'olt_detail' olt.ip olt.model %}">
                             {{ olt.ip }}
                             {{ olt.address }}
                             {{ olt.model }}
@@ -43,7 +43,7 @@
                 <div class="dropdown-menu">
                     {% for olt in olts %}
                     {% if olt.desc == 'Шалинский' %}
-                    <li class="dropdown-item"><a href="{% url 'olt_detail' olt.ip olt.model %}">
+                    <li class="dropdown-item"><a class="alert-success" href="{% url 'olt_detail' olt.ip olt.model %}">
                             {{ olt.ip }}
                             {{ olt.address }}
                             {{ olt.model }}
@@ -58,7 +58,7 @@
                 <div class="dropdown-menu">
                     {% for olt in olts %}
                     {% if olt.desc == 'Урус-Мартановский' %}
-                    <li class="dropdown-item"><a href="{% url 'olt_detail' olt.ip olt.model %}">
+                    <li class="dropdown-item"><a class="alert-success" href="{% url 'olt_detail' olt.ip olt.model %}">
                             {{ olt.ip }}
                             {{ olt.address }}
                             {{ olt.model }}
@@ -73,7 +73,7 @@
                 <div class="dropdown-menu">
                     {% for olt in olts %}
                     {% if olt.desc == 'Знаменский' %}
-                    <li class="dropdown-item"><a href="{% url 'olt_detail' olt.ip olt.model %}">
+                    <li class="dropdown-item"><a class="alert-success" href="{% url 'olt_detail' olt.ip olt.model %}">
                             {{ olt.ip }}
                             {{ olt.address }}
                             {{ olt.model }}
