@@ -10,7 +10,7 @@
         {% for ont, state in zipped_context %}
         <li>
             <a class="{{ state.value|ont_status }}" href="{% url 'ont_detail' ip model ont.oid %}">
-                {{ ont.value|clear_value }}
+                {{ forloop.counter }} {{ ont.value|clear_value }}
             </a>
         </li>
         {% endfor %}
