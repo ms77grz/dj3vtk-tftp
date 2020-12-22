@@ -18,6 +18,13 @@ def search(request):
         form = SearchSubscriber(request.POST)
         if form.is_valid():
             account_number = form.cleaned_data.get('account_number')
+            
+            try:
+                account_number = int(account_number)
+            except Exception:
+                messages.error(request, f'Введите номер лицевого счета')
+                return redirect('equipment_accounting_search')
+
             command = ["ag", "-B 1", "--hidden", "--nonumbers",
                        f"{account_number}", DEVCONS]
             process = Popen(command, stdout=PIPE, stderr=STDOUT)
