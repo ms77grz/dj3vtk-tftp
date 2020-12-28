@@ -33,7 +33,7 @@ def olt_list(request):
 @login_required
 def olt_detail(request, ip, model):
     title = 'Список абонентов'
-    if model not in ['LTP-4X', 'LTP-8X']:
+    if model in ['MA5608T', 'MA5683T']:
         try:
             session = Session(hostname=ip, community=SNMP_COMM_RO, version=2)
             subscribers = session.walk('.1.3.6.1.4.1.2011.6.128.1.1.2.43.1.9')
