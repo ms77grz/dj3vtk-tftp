@@ -5,15 +5,15 @@ register = template.Library()
 
 
 @register.filter
-def clear_value(text):
-    return text.replace('_', ' ').replace('=', '')
-
-
-@register.filter
 def ont_status(value):
     if value == '1':
         return 'online'
     return 'offline'
+
+
+# @register.filter
+# def clear_value(text):
+#     return text.replace('_', ' ').replace('=', '')
 
 
 # @register.filter

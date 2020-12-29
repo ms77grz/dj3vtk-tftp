@@ -5,28 +5,36 @@
 
 {% block content %}
 <div class="content-section p-2">
-    <h3>{{ title }}</h3>
+    <h4 class="text-muted">{{ title }}: {{total_subscribers}}</h4>
     <ul>
-        {% for ont, state in zipped_context %}
+        {% for ont, subscriber in sorted_data.items %}
         <li>
-            <a class="{{ state.value|ont_status }}" href="{% url 'ont_detail' ip model ont.oid %}">
-                {{ forloop.counter }}) {{ ont.value|clear_value }}
+            [ {{ forloop.counter }} ]
+            <a class="{{subscriber.status|ont_status}}" href="{% url 'ont_detail' ip model ont %}">
+                {{subscriber.description }}
+                {{subscriber.splitter}}
             </a>
         </li>
         {% endfor %}
+
     </ul>
 </div>
 {% endblock %}
+
 {% block analitycs %}
 <div class="col-md-4">
     <div class="content-section">
-        <h3>Аналитика</h3>
+        <h4 class="text-muted">Аналитика</h4>
         <p class="text-muted">Карта проекта
-        <ul class="list-group">
-            <li class="list-group-item list-group-item-light">Сортировка по сплиттерам</li>
-            <li class="list-group-item list-group-item-light">Емкость сплиттеров</li>
-            <li class="list-group-item list-group-item-light">Колличество сплиттеров</li>
-        </ul>
+        <div style="border: #d1d1d1 1px solid; padding: 10px 10px;margin-bottom: 2px; border-radius: 4px;">
+            <h6 class="text-muted">Емкость сплиттеров</h6>
+            <ul style="padding-bottom: 10px;">
+                {% for splitter in sorted_splitters %}
+                <li class="small list-group-item-light">{{ splitter }}</li>
+                {% endfor %}
+            </ul>
+            <h6 class="text-muted">Колличество сплиттеров: {{total_spliters}}</h6>
+        </div>
         </p>
     </div>
 </div>

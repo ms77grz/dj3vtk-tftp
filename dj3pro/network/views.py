@@ -6,6 +6,9 @@ import pandas as pd
 import os
 from .utils import sp
 from django.conf import settings
+from collections import OrderedDict
+from operator import getitem
+
 
 SNMP_COMM_RO = settings.SNMP_COMM_RO
 
@@ -35,32 +38,69 @@ def olt_detail(request, ip, model):
     title = 'Список абонентов'
     if model in ['MA5608T', 'MA5683T']:
         try:
+            # GET SNMP DATA FROM OLT
             session = Session(hostname=ip, community=SNMP_COMM_RO, version=2)
             subscribers = session.walk('.1.3.6.1.4.1.2011.6.128.1.1.2.43.1.9')
             states = session.walk('.1.3.6.1.4.1.2011.6.128.1.1.2.46.1.15')
             zipped_context = zip(subscribers, states)
+
+            # CREATE A DICT WITH KEY VALUE PAIRS / REPORT DICT FOR SPLITTERS
+            data = {}
+            report = {}
+            for subscriber, state in zipped_context:
+                key = subscriber.oid
+                description = ' '.join(subscriber.value.replace('_', ' ').replace(
+                    '=', ' ').replace('(', ' ').replace(')', ' ').split()[:-1])
+                status = state.value
+                splitter = ''.join(subscriber.value.replace('_', ' ').replace(
+                    '=', ' ').replace('(', ' ').replace(')', ' ').split()[-1])
+                data[key] = {'description': description,
+                            'status': status, 'splitter': splitter}
+
+                count = report.get(splitter, 0)
+                report[splitter] = count + 1
+
+            # SORT DATA VIA SPLITTERS AS A KEY
+            sorted_data = OrderedDict(sorted(data.items(), key=lambda x: getitem(x[1], 'splitter')))
+                        
+            # COLLECT SPLITTERS FROM REPORT TO A SORTED SPLITTERS LIST
+            splitters = sorted(report.items(), key=lambda item: item[0])
+
+            sorted_splitters = []
+            for line in splitters:
+                print(line)
+                sorted_splitters.append(f'splitter {line[0]}: {line[1]}')
+            
+
+            # EVALUATE TOTAL SPLITTERS
+            total_spliters = len(report.keys())
+            print(total_spliters)
+
+            # EVALUATE TOTAL SUBSCRIBERS
+            total_subscribers = len(sorted_data)
+
         except Exception:
             messages.error(request, f'Не удалось установить связь с {ip}')
             return redirect('olt_list')
     else:
-        # try:
-        #     session = Session(hostname=ip, community=SNMP_COMM_RO, version=2)
-        #     subscribers = session.walk(
-        #         '.1.3.6.1.4.1.35265.1.22.3.4.1.8')
-        #     states = session.walk('.1.3.6.1.4.1.35265.1.22.3.2.1.5')
-        #     zipped_context = zip(subscribers, states)
-        # except Exception:
-        #     messages.error(request, f'Не удалось установить связь с {ip}')
-        #     return redirect('olt_list')
         messages.error(request, f'Функционал для ELTEX не работает. Попробуйте подключиться по telnet {ip}')
         return redirect('olt_list')
-    return render(request, 'network/gpon/olt_detail.html', {'title': title, 'zipped_context': zipped_context, 'ip': ip, 'model': model})
+    
+    return render(request, 'network/gpon/olt_detail.html',
+                  {'title': title,
+                   'ip': ip,
+                   'model': model,
+                   'sorted_data': sorted_data,
+                   'sorted_splitters': sorted_splitters,
+                   'total_spliters': total_spliters,
+                   'total_subscribers': total_subscribers,
+                   })
 
 
 @login_required
 def ont_detail(request, ip, model, oid):
     title = 'Свойства ONT'
-    if model not in ['LTP-4X', 'LTP-8X']:
+    if model in ['MA5608T', 'MA5683T']:
         ont_id = oid.split('.')[-1]  # 0-15
         oid_id = '.'.join(oid.split('.')[-2:])  # 4194304000.0
         port_id = oid.split('.')[-2]  # 4194304000
