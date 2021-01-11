@@ -13,7 +13,9 @@
                 <div class="dropdown-menu">
                     {% for olt in olts %}
                     {% if olt.desc == 'Грозненский' %}
-                    <li class="dropdown-item"><a class="alert-success" href="{% url 'olt_detail' olt.ip olt.model %}">
+                    <li><a onMouseOver="this.style.background='#78b833'" onMouseOut="this.style.background='#28a745'"
+                            style="display: block; background: #28a745; color: white; padding: 0 5px; text-decoration: none; margin: 2px; font-size: 0.85rem;"
+                            href="{% url 'olt_detail' olt.ip olt.model %}">
                             {{ olt.ip }}
                             {{ olt.address }}
                             {{ olt.model }}
@@ -28,7 +30,9 @@
                 <div class="dropdown-menu">
                     {% for olt in olts %}
                     {% if olt.desc == 'Гудермесский' %}
-                    <li class="dropdown-item"><a class="alert-success" href="{% url 'olt_detail' olt.ip olt.model %}">
+                    <li><a onMouseOver="this.style.background='#78b833'" onMouseOut="this.style.background='#28a745'"
+                            style="display: block; background: #28a745; color: white; padding: 0 5px; text-decoration: none; margin: 2px; font-size: 0.85rem;"
+                            href="{% url 'olt_detail' olt.ip olt.model %}">
                             {{ olt.ip }}
                             {{ olt.address }}
                             {{ olt.model }}
@@ -43,7 +47,9 @@
                 <div class="dropdown-menu">
                     {% for olt in olts %}
                     {% if olt.desc == 'Шалинский' %}
-                    <li class="dropdown-item"><a class="alert-success" href="{% url 'olt_detail' olt.ip olt.model %}">
+                    <li><a onMouseOver="this.style.background='#78b833'" onMouseOut="this.style.background='#28a745'"
+                            style="display: block; background: #28a745; color: white; padding: 0 5px; text-decoration: none; margin: 2px; font-size: 0.85rem;"
+                            href="{% url 'olt_detail' olt.ip olt.model %}">
                             {{ olt.ip }}
                             {{ olt.address }}
                             {{ olt.model }}
@@ -55,10 +61,12 @@
         </div>
         <div class="dropdown show">
             <h6 class="dropdown-toggle" data-toggle="dropdown">Урус-Мартановский участок</h3>
-                <div class="dropdown-menu">
+                <div class="dropdown-menu" style="margin-top: 10px;">
                     {% for olt in olts %}
                     {% if olt.desc == 'Урус-Мартановский' %}
-                    <li class="dropdown-item"><a class="alert-success" href="{% url 'olt_detail' olt.ip olt.model %}">
+                    <li><a onMouseOver="this.style.background='#78b833'" onMouseOut="this.style.background='#28a745'"
+                            style="display: block; background: #28a745; color: white; padding: 0 5px; text-decoration: none; margin: 2px; font-size: 0.85rem;"
+                            href="{% url 'olt_detail' olt.ip olt.model %}">
                             {{ olt.ip }}
                             {{ olt.address }}
                             {{ olt.model }}
@@ -73,7 +81,9 @@
                 <div class="dropdown-menu">
                     {% for olt in olts %}
                     {% if olt.desc == 'Знаменский' %}
-                    <li class="dropdown-item"><a class="alert-success" href="{% url 'olt_detail' olt.ip olt.model %}">
+                    <li><a onMouseOver="this.style.background='#78b833'" onMouseOut="this.style.background='#28a745'"
+                            style="display: block; background: #28a745; color: white; padding: 0 5px; text-decoration: none; margin: 2px; font-size: 0.85rem;"
+                            href="{% url 'olt_detail' olt.ip olt.model %}">
                             {{ olt.ip }}
                             {{ olt.address }}
                             {{ olt.model }}
