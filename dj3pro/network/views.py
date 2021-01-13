@@ -68,7 +68,6 @@ def olt_detail(request, ip, model):
 
             sorted_splitters = []
             for line in splitters:
-                print(line)
                 sorted_splitters.append(f'splitter {line[0]}: {line[1]}')
             
 
