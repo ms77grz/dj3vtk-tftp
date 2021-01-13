@@ -1,0 +1,41 @@
+{% extends 'network/base.html' %}
+{% load static %}
+{% block title %}{% endblock %}
+{% block extra_head_content %}
+{{ block.super }}
+<!-- styles -->
+<link rel="stylesheet" href="{% static 'network/css/styles.css' %}">
+<!-- leaflet -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+<!-- leaflet draw -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.js "></script>
+{% endblock %}
+
+{% block map_content %}
+
+<section id="map">
+</section>
+<script src="{% static 'network/js/map.js' %}"></script>
+
+<script>
+    window.addEventListener("DOMContentLoaded", function (event) {
+        const coords = '{{coords|safe}}'
+        const items = JSON.parse(coords)
+        items.forEach(function (item) {
+
+            // draw markers
+            // L.marker(Object.values(item))
+            //     .addTo(map)
+            //     .bindPopup('A pretty CSS3 popup.<br> Easily customizable.')
+            //     .openPopup()
+
+            // draw circleMarkers
+            L.circleMarker(Object.values(item), { radius: 8, color: 'red', weight: 2 }).addTo(map).bindPopup('A pretty CSS3 popup.<br> Easily customizable.')
+        })
+
+
+    });
+</script>
+{% endblock %}

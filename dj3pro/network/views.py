@@ -144,3 +144,13 @@ def ont_detail(request, ip, model, oid):
         'slot_port': slot_port,
         'optical_power': optical_power
     })
+
+
+@login_required
+def show_map(request):
+    coords = [
+        [43.128183,45.539424],
+        [43.119749,45.562305],
+        [43.143048,45.534987],
+    ]
+    return render(request, 'network/gpon/olt_map.html',{'title': 'Карта Проекта', 'coords':coords})

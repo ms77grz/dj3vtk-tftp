@@ -16,6 +16,7 @@
     {% else %}
     <title>VTK Network</title>
     {% endif %}
+    {% block extra_head_content %}{% endblock %}
 </head>
 
 <body>
@@ -55,6 +56,7 @@
             </div>
         </nav>
     </header>
+    {% block map_content %}{% endblock %}
     <main role="main" class="container">
         <div class="row">
             <div class="col-md-8">
