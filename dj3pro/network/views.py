@@ -10,7 +10,7 @@ from collections import OrderedDict
 from operator import getitem
 
 
-SNMP_COMM_RO = settings.SNMP_COMM_RO
+SNMP_COMM_RO_GPON = settings.SNMP_COMM_RO_GPON
 
 module_dir = os.path.dirname(__file__)  # get current directory
 file_path = os.path.join(module_dir, '/home/ms77grz/.devreg/gpon_hosts.csv')
@@ -39,7 +39,7 @@ def olt_detail(request, ip, model):
     if model in ['MA5608T', 'MA5683T']:
         try:
             # GET SNMP DATA FROM OLT
-            session = Session(hostname=ip, community=SNMP_COMM_RO, version=2)
+            session = Session(hostname=ip, community=SNMP_COMM_RO_GPON, version=2)
             subscribers = session.walk('.1.3.6.1.4.1.2011.6.128.1.1.2.43.1.9')
             states = session.walk('.1.3.6.1.4.1.2011.6.128.1.1.2.46.1.15')
             zipped_context = zip(subscribers, states)
@@ -104,7 +104,7 @@ def ont_detail(request, ip, model, oid):
         port_id = oid.split('.')[-2]  # 4194304000
         slot_port = sp(port_id)
         try:
-            session = Session(hostname=ip, community='gpon_vtk_95',
+            session = Session(hostname=ip, community=SNMP_COMM_RO_GPON,
                               version=2, use_sprint_value=True)
             subscriber = session.get(f'.1.3.6.1.4.1.2011.6.128.1.1.2.43.1.9.{oid_id}')
             subscriber = ' '.join(subscriber.value.replace('_', ' ').replace('=', ' ').replace('(', ' ').replace(')', ' ').replace('"', '').split())

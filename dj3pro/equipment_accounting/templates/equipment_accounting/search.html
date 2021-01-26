@@ -5,7 +5,7 @@
     <form action="" method="POST">
         {% csrf_token %}
         <fieldset class="form-group">
-            <legend class="border-bottom mb-4">Поиск абонента</legend>
+            <legend class="border-bottom mb-4 text-muted">Поиск абонента</legend>
             {{ form|crispy }}
         </fieldset>
         <div class="form-group">
@@ -14,11 +14,49 @@
     </form>
 </div>
 {% if output %}
-<article class="media content-section">
+<!-- <article class="media content-section">
     <div class="media-body">
         {% for line in output%}
         <p>{{ line }}</p>
         {% endfor %}
+    </div>
+</article> -->
+<article class="media content-section">
+    <div class="media-body">
+        <!-- CLIPBOARD -->
+        <div id="tocopy">
+            <h5 class="text-muted">Абонент</h5>
+            <ul>
+                {% if is_online %}
+                <li class="font-weight-bold text-success">{{ description }}</li>
+                {% else %}
+                <li class="font-weight-bold text-danger">{{ description }}</li>
+                {% endif %}
+                <li>коммутатор: {{ model }}</li>
+                <li>ip: {{ ip }}</li>
+                <li>порт: {{ port }}</li>
+            </ul>
+        </div>
+        <!-- END OF CLIPBOARD -->
+    </div>
+    <button type="button" class="btn btn-success mt-2" onclick="clipboard()">Copy</button>
+
+    <script>
+        function clipboard() {
+            const dummy = document.createElement('textarea')
+            document.body.appendChild(dummy)
+            dummy.value = document.getElementById('tocopy').innerText
+            dummy.select()
+            document.execCommand("copy")
+            document.body.removeChild(dummy)
+        }
+    </script>
+
+</article>
+{% else %}
+<article class="media content-section">
+    <div class="media-body">
+        <h5 class="text-danger">Данные отсутствуют!</h5>
     </div>
 </article>
 {% endif %}
