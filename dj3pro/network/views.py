@@ -73,7 +73,6 @@ def olt_detail(request, ip, model):
 
             # EVALUATE TOTAL SPLITTERS
             total_spliters = len(report.keys())
-            print(total_spliters)
 
             # EVALUATE TOTAL SUBSCRIBERS
             total_subscribers = len(sorted_data)
@@ -107,8 +106,10 @@ def ont_detail(request, ip, model, oid):
         try:
             session = Session(hostname=ip, community='gpon_vtk_95',
                               version=2, use_sprint_value=True)
-            sn = session.get(f'iso.3.6.1.4.1.2011.6.128.1.1.2.43.1.3.{oid_id}').value.replace(
-                ' ', '').replace('"', '')
+            subscriber = session.get(f'.1.3.6.1.4.1.2011.6.128.1.1.2.43.1.9.{oid_id}')
+            subscriber = ' '.join(subscriber.value.replace('_', ' ').replace('=', ' ').replace('(', ' ').replace(')', ' ').replace('"', '').split())
+            print(subscriber)
+            sn = session.get(f'iso.3.6.1.4.1.2011.6.128.1.1.2.43.1.3.{oid_id}').value.replace(' ', '').replace('"', '')
             lineprofile = session.get(
                 f'.1.3.6.1.4.1.2011.6.128.1.1.2.43.1.7.{oid_id}').value.replace('"', '')
             optical_power = round(int(session.get(
@@ -136,6 +137,7 @@ def ont_detail(request, ip, model, oid):
 
     return render(request, 'network/gpon/ont_detail.html', {
         'title': title,
+        'subscriber': subscriber,
         'ip': ip,
         'lineprofile': lineprofile,
         'sn': sn,

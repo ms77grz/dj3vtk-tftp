@@ -5,8 +5,9 @@
 
 {% block content %}
 <div class="content-section">
-    <h3>{{ title }}</h3>
+    <h4 class="text-muted">{{ title }}</h4>
     <ul class="list-group mb-3">
+        <li class="list-group-item list-group-item-light">SUB: {{ subscriber }}</li>
         <li class="list-group-item list-group-item-light">OLT: {{ ip }}</li>
         <li class="list-group-item list-group-item-light">Slot/Port: {{ slot_port }}</li>
         <li class="list-group-item list-group-item-light">ONT ID: {{ ont_id }}</li>
