@@ -108,7 +108,6 @@ def ont_detail(request, ip, model, oid):
                               version=2, use_sprint_value=True)
             subscriber = session.get(f'.1.3.6.1.4.1.2011.6.128.1.1.2.43.1.9.{oid_id}')
             subscriber = ' '.join(subscriber.value.replace('_', ' ').replace('=', ' ').replace('(', ' ').replace(')', ' ').replace('"', '').split())
-            print(subscriber)
             sn = session.get(f'iso.3.6.1.4.1.2011.6.128.1.1.2.43.1.3.{oid_id}').value.replace(' ', '').replace('"', '')
             lineprofile = session.get(
                 f'.1.3.6.1.4.1.2011.6.128.1.1.2.43.1.7.{oid_id}').value.replace('"', '')

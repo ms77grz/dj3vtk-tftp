@@ -32,9 +32,14 @@
                 {% else %}
                 <li class="font-weight-bold text-danger">{{ description }}</li>
                 {% endif %}
+                {% if port %}
                 <li>коммутатор: {{ model }}</li>
-                <li>ip: {{ ip }}</li>
+                <li>IP: {{ ip }}</li>
                 <li>порт: {{ port }}</li>
+                {% else %}
+                <li>GPON OLT: {{ model }}</li>
+                <li>IP: {{ ip }}</li>
+                {% endif %}
             </ul>
         </div>
         <!-- END OF CLIPBOARD -->
@@ -53,5 +58,6 @@
     </script>
 
 </article>
+<a href="{{ link }}" class="btn btn-secondary">перейти к абоненту</a>
 {% endif %}
 {% endblock content %}

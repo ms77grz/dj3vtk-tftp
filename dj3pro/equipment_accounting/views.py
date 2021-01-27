@@ -44,7 +44,7 @@ def search(request):
                 'output': output,
             }
             if output:
-                model = output[0].split('_')[0]
+                model = output[0].split('_')[0].upper()
                 ip = output[0].split('_')[1].split('.cfg:')[0]
                 port = output[0].split('_')[1].split('.cfg:')[1]
                 # example ls 1102288921 with name in description line - SOLVED
@@ -56,7 +56,8 @@ def search(request):
                     description = description.split('name')[1].replace('=', '').strip()
                 if 'desc' in description:
                     description = description.split('desc')[1].replace('=', '').replace('"', '').strip()
-                    print(description)
+                    port = None
+                    link = f'network/gpon/olt/{ip}/{model}'
                 # CHECK IF HOST IS REACHABLE VIA SNMP
                 # try:
                 #     session = Session(hostname=ip, community='vtk', version=2, timeout=1, retries=1)
@@ -65,10 +66,13 @@ def search(request):
                 #     is_online = False
                 
                 # CHECK IF HOST IS REACHABLE VIA SOCKET
-                socket.setdefaulttimeout(1)
+                # socket.setdefaulttimeout(1)
                 destination = (ip, 23)
                 DEVICE_SOCKET = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-                result = DEVICE_SOCKET.connect_ex(destination)
+                try:
+                    result = DEVICE_SOCKET.connect_ex(destination)
+                except Exception as error:
+                    print(error)
                 if result == 0:
                     is_online = True
                 else:
@@ -79,7 +83,7 @@ def search(request):
                 context['port'] = port
                 context['description'] = description
                 context['is_online'] = is_online
-                print(output)
+                context['link'] = link
             return render(request, 'equipment_accounting/search.html', context)
     else:
         form = SearchSubscriber()
