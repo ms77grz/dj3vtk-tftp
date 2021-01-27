@@ -47,6 +47,7 @@ def search(request):
                 model = output[0].split('_')[0].upper()
                 ip = output[0].split('_')[1].split('.cfg:')[0]
                 port = output[0].split('_')[1].split('.cfg:')[1]
+                link = None
                 # example ls 1102288921 with name in description line - SOLVED
                 # example ls 1102412121 with name in description line
                 description = ' '.join(output[1].split('_')[1:]).split('.cfg:')[1].strip()
