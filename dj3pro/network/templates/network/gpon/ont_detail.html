@@ -5,15 +5,31 @@
 
 {% block content %}
 <div class="content-section">
-    <h4 class="text-muted">{{ title }}</h4>
-    <ul class="list-group mb-3">
-        <li class="list-group-item list-group-item-light">SUB: {{ subscriber }}</li>
-        <li class="list-group-item list-group-item-light">OLT: {{ ip }}</li>
-        <li class="list-group-item list-group-item-light">Slot/Port: {{ slot_port }}</li>
-        <li class="list-group-item list-group-item-light">ONT ID: {{ ont_id }}</li>
-        <li class="list-group-item list-group-item-light">SN: {{ sn }}</li>
-        <li class="list-group-item list-group-item-light">Profile: {{ lineprofile }}</li>
-        <li class="list-group-item list-group-item-light">OLT Rx ONT optical power(dBm): {{ optical_power }}</li>
-    </ul>
+    <div class="d-flex justify-content-between mb-2">
+        <h4 class="text-muted">{{ title }}</h4>
+        <button type="button" class="btn btn-success" onclick="clipboard()">Copy</button>
+    </div>
+    <div id="tocopy">
+        <ul class="list-group mb-3">
+            <li class="list-group-item list-group-item-light">SUB: {{ subscriber }}</li>
+            <li class="list-group-item list-group-item-light">OLT: {{ ip }}</li>
+            <li class="list-group-item list-group-item-light">Slot/Port: {{ slot_port }}</li>
+            <li class="list-group-item list-group-item-light">ONT ID: {{ ont_id }}</li>
+            <li class="list-group-item list-group-item-light">SN: {{ sn }}</li>
+            <li class="list-group-item list-group-item-light">Profile: {{ lineprofile }}</li>
+            <li class="list-group-item list-group-item-light">OLT Rx ONT optical power(dBm): {{ optical_power }}</li>
+        </ul>
+    </div>
 </div>
+
+<script>
+    function clipboard() {
+        const dummy = document.createElement('textarea')
+        document.body.appendChild(dummy)
+        dummy.value = document.getElementById('tocopy').innerText
+        dummy.select()
+        document.execCommand("copy")
+        document.body.removeChild(dummy)
+    }
+</script>
 {% endblock %}
