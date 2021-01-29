@@ -6,4 +6,4 @@ class SearchSubscriber(forms.Form):
         label='Введите номер лицевого счета',
         # widget=forms.TextInput(attrs={'placeholder': 'Без 11', 'autocomplete': 'off'}),
         widget=forms.TextInput(),
-        min_length=8, max_length=12)
+        min_length=7, max_length=12)
