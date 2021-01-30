@@ -67,7 +67,7 @@ def search(request):
                 #     is_online = False
                 
                 # CHECK IF HOST IS REACHABLE VIA SOCKET
-                # socket.setdefaulttimeout(1)
+                socket.setdefaulttimeout(1)
                 destination = (ip, 23)
                 DEVICE_SOCKET = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
                 try:
