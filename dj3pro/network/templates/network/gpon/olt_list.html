@@ -97,26 +97,32 @@
     </ul>
 </div>
 
-<input type="text" name="olt_ip" id="olt-ip" placeholder="Введите IP">
-<button type="button" class="btn btn-outline-secondary btn-sm" onclick="find_olt()">Найти</button>
+<input type="text" class="form-control" name="olt_ip" id="olt-ip" placeholder="Введите IP">
+<button type="button" class="btn btn-outline-secondary btn-sm mt-2" onclick="find_olt()">Найти</button>
 <div id="result" class="mt-2"></div>
 
 <script>
-
     function find_olt() {
         const items = document.querySelectorAll('li')
         const olt_ip = document.getElementById('olt-ip').value
         const result = document.getElementById('result')
         for (let i = 0; i < items.length; i++) {
             list_item = items[i].innerText
-            if (list_item.includes(olt_ip)) {
+            if (list_item.includes(olt_ip) && olt_ip) {
+                const area = document.createElement('h6')
+                area.innerText = items[i].parentElement.parentElement.innerText
+                area.classList.add('text-muted')
                 const link = document.createElement('a')
                 link.href = items[i].href
                 link.innerHTML = items[i].innerHTML
                 if (result.hasChildNodes()) {
                     result.innerHTML = ''
                 }
+                result.appendChild(area)
                 result.appendChild(link)
+                return true
+            } else {
+                result.innerHTML = ''
             }
         }
     }
