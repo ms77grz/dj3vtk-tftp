@@ -26,7 +26,7 @@ from django.contrib.auth.models import User
 class PostListView(LoginRequiredMixin, ListView):
     queryset = Post.published.all()
     context_object_name = 'posts'
-    paginate_by = 3
+    paginate_by = 5
     # template_name = 'blog/post/list.html'
 
 
