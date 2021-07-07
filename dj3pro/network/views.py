@@ -36,7 +36,7 @@ def olt_list(request):
 @login_required
 def olt_detail(request, ip, model):
     title = 'Список абонентов'
-    if model in ['MA5608T', 'MA5683T']:
+    if model in ['MA5608T', 'MA5683T', 'MA5801-GP08']:
         try:
             # GET SNMP DATA FROM OLT
             session = Session(hostname=ip, community=SNMP_COMM_RO_GPON, version=2)
@@ -98,7 +98,7 @@ def olt_detail(request, ip, model):
 @login_required
 def ont_detail(request, ip, model, oid):
     title = 'Свойства ONT'
-    if model in ['MA5608T', 'MA5683T']:
+    if model in ['MA5608T', 'MA5683T', 'MA5801-GP08']:
         ont_id = oid.split('.')[-1]  # 0-15
         oid_id = '.'.join(oid.split('.')[-2:])  # 4194304000.0
         port_id = oid.split('.')[-2]  # 4194304000
@@ -108,7 +108,9 @@ def ont_detail(request, ip, model, oid):
                               version=2, use_sprint_value=True)
             subscriber = session.get(f'.1.3.6.1.4.1.2011.6.128.1.1.2.43.1.9.{oid_id}')
             subscriber = ' '.join(subscriber.value.replace('_', ' ').replace('=', ' ').replace('(', ' ').replace(')', ' ').replace('"', '').split())
-            sn = session.get(f'iso.3.6.1.4.1.2011.6.128.1.1.2.43.1.3.{oid_id}').value.replace(' ', '').replace('"', '')
+            print(subscriber)
+            sn = session.get(f'1.3.6.1.4.1.2011.6.128.1.1.2.43.1.3.{oid_id}').value.replace(' ', '').replace('"', '')
+            print(sn)
             lineprofile = session.get(
                 f'.1.3.6.1.4.1.2011.6.128.1.1.2.43.1.7.{oid_id}').value.replace('"', '')
             optical_power = round(int(session.get(
